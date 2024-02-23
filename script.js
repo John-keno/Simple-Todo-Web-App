@@ -16,7 +16,7 @@ function addTask() {
     // Clear the input field
     todoInput.value = "";
     // Add a double click event listener to the list item
-    li.addEventListener("dblclick", function () {
+    li.addEventListener("click", function () {
       // Toggle the checked class on the list item
       li.classList.toggle("checked");
     });

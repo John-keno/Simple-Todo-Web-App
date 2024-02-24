@@ -16,7 +16,7 @@ function addTask() {
     // Clear the input field
     todoInput.value = "";
     // Add a double click event listener to the list item
-    li.addEventListener("click", function () {
+    li.addEventListener("dblclick", function () {
       // Toggle the checked class on the list item
       li.classList.toggle("checked");
     });
@@ -31,7 +31,14 @@ function addTask() {
     // Add a click event listener to the delete button
     deleteBtn.addEventListener("click", function () {
       // Remove the list item from the list
-      todoList.removeChild(li);
+      var confirmDelete = confirm(
+        "Are you sure you want to delete this task?\n'" + li.innerText + "'"
+      );
+      if (confirmDelete === true) {
+        todoList.removeChild(li);
+      } else {
+        alert("Your task remains!");
+      }
     });
     // Create an edit button element
     var editBtn = document.createElement("input");
@@ -44,18 +51,20 @@ function addTask() {
     // Add a click event listener to the edit button
     editBtn.addEventListener("click", function () {
       // Prompt the user to enter a new task
-      var newv = li.innerText;
-      var newTodo = prompt("Enter a new task", newv);
+      var taskText = li.innerText;
+      var newTodo = prompt("Update your task: ", taskText);
       // Check if the user entered a valid task
-      if (newTodo && newTodo !== newv) {
+      if (newTodo && newTodo !== taskText) {
         // Update the text content of the list item
         li.textContent = newTodo;
         // Append the delete and edit buttons to the list item
         li.appendChild(deleteBtn);
         li.appendChild(editBtn);
+      } else if (!newTodo) {
+        alert("Task cannot be empty. No changes made");
       }
     });
   } else {
-    alert("Field cannot be empty. Please add a task.");
+    alert("Field cannot be empty. Please enter a task.");
   }
 }
